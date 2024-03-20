@@ -22,7 +22,7 @@ DB_URL="<database>://<user>:<password>@<address>:<port>/<database_name>"
 ```
 > This is a generic URL. If you'll use docker to run the application, use the following database URL: `DB_URL="postgres://admin:admin@postgres:5432/postgres"`
 
-In addition the database URL, you can change other parameters like the `PORT`, the `EXPIRES_TOKEN` and the `ALGORITHM_TOKEN`. But this change is not mandatory, as these have default values.
+In addition the database URL, you can change other parameters like the `APP_PORT`, the `EXPIRES_TOKEN` and the `ALGORITHM_TOKEN`. But this change is not mandatory, as these have default values.
 
 The next step is generate de application key. For that, run the following command:
 

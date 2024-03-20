@@ -18,6 +18,11 @@ def edit_env(key):
             if line.startswith("SECRET_KEY="):
                 spliter = line.split("=")
                 lines[idx] = spliter[0] + f'="{key}"\n'
+                flag = True
+        if flag:
+            print(f"Successfully generate app key: {key}")
+        else:
+            print(f"Parameter 'SECRET_KEY' do not exist in '.env' file.")
         file.seek(0)
         file.writelines(lines)    
 
