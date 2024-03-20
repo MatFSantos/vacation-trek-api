@@ -1,0 +1,51 @@
+generator client {
+    provider = "prisma-client-py"
+    recursive_type_depth = 5
+}
+
+datasource db {
+    provider = "postgresql"
+    url = env("DB_URL")
+}
+
+model User {
+    user_id     Int @id @default(autoincrement())
+    name        String @db.VarChar(200) 
+    email       String @unique @db.VarChar(100)
+    password    String @db.VarChar(200)
+
+    plans       Plan[]
+
+    @@map("user")
+}
+
+model Plan {
+    plan_id     Int @id @default(autoincrement())
+    title       String @db.VarChar(100)
+    description String @db.VarChar(300)
+    date_start  DateTime
+    date_end    DateTime
+
+    participants    Participant[]
+    itineraries     Itinerary[]
+
+    user        User @relation(fields: [user_id], references: [user_id])
+    user_id     Int
+}
+
+model Participant {
+    participant_id  Int @id @default(autoincrement())
+    name            String @db.VarChar(200)
+
+    plan        Plan @relation(fields: [plan_id], references: [plan_id])
+    plan_id     Int
+}
+
+model Itinerary{
+    itinerary_id    Int @id @default(autoincrement())
+    date            DateTime
+    location        String
+
+    plan        Plan @relation(fields: [plan_id], references: [plan_id])
+    plan_id     Int
+}
