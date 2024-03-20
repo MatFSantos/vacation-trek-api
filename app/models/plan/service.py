@@ -17,9 +17,11 @@ class PlanService:
     async def getOne(id: int) -> Plan:
         try:
             result = await PlanRepository.getOne(id=id)
-            return result
         except Exception as e:
             HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+        if result:
+            return result
+        raise HTTPException(status_code=404, detail="Plan not found")
     
     @staticmethod
     async def delete(id: int) -> Plan | None:

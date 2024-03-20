@@ -1,5 +1,7 @@
 #!/bin/bash
 
-prisma db push --force-reset --accept-data-loss
+prisma migrate dev
+
+prisma generate
 
 python run.py

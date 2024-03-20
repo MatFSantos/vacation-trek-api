@@ -7,20 +7,34 @@ class ItineraryService:
 
     @staticmethod
     async def getAll():
-        return await ItineraryRepository.getAll()
+        try:
+            return await ItineraryRepository.getAll()
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
     
     @staticmethod
     async def getOne(id: int):
-        result = await ItineraryRepository.getOne(id=id)
-        return result
-    
+        try:
+            result = await ItineraryRepository.getOne(id=id)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+        if result:
+            return result
+        raise HTTPException(status_code=404, detail="Itinerary not found.")
+
     @staticmethod
     async def delete(id: int):
-        return await ItineraryRepository.delete(id=id)
+        try:
+            return await ItineraryRepository.delete(id=id)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
     
     @staticmethod
     async def update(id: int, itinerary: dict):
-        return await ItineraryRepository.update(id=id, itinerary=itinerary)
+        try:
+            return await ItineraryRepository.update(id=id, itinerary=itinerary)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
 
     @staticmethod
     async def create(payload: CreateItinerary):

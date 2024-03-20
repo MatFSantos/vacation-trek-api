@@ -16,10 +16,13 @@ class UserService:
     async def getOne(id: int):
         try:
             result = await UserRepository.getOne(id=id)
-            result.password = None
-            return result
         except Exception as e:
             HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+        if result:
+            result.password = None
+            return result
+        else:
+            raise HTTPException(status_code=404, detail="User not found.")
     
     @staticmethod
     async def delete(id: int):

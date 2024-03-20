@@ -16,9 +16,11 @@ class ParticipantService:
     async def getOne(id: int):
         try:
             result = await ParticipantRepository.getOne(id=id)
-            return result
         except Exception as e:
             HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+        if result:
+            return result
+        raise HTTPException(status_code=404, detail="Participant not found.")
     
     @staticmethod
     async def delete(id: int):
