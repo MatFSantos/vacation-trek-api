@@ -20,7 +20,7 @@ After that, put the database URL in the generated `.env`. Example:
 DB_URL="<database>://<user>:<password>@<address>:<port>/<database_name>"
 ...
 ```
-> This is a generic URL. If you'll use docker to run the application, use the following database URL: `DB_URL="postgres://admin:admin@localhost:5432/postgres"`
+> This is a generic URL. If you'll use docker to run the application, use the following database URL: `DB_URL="postgres://admin:admin@postgres:5432/postgres"`
 
 In addition the database URL, you can change other parameters like the `PORT`, the `EXPIRES_TOKEN` and the `ALGORITHM_TOKEN`. But this change is not mandatory, as these have default values.
 
@@ -61,13 +61,10 @@ $ pipenv shell
 Once the environment started and all dependencies have been installed, the database migrations must be carried out by running the following commands:
 
 ```
-$ prisma migrate dev
+$ prisma db push --force-reset --accept-data-loss
 ```
 
-```
-$ prisma generate
-```
-> These commands will migrate and generate the prisma models, respectively.
+> This command will migrate and generate the prisma models.
 
 Now, to run the application just execute:
 
