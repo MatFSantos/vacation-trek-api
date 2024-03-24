@@ -2,10 +2,6 @@ from fastapi import Request, HTTPException
 from app.utils import token_provider
 from jose.exceptions import JWTError, ExpiredSignatureError, JWTClaimsError
 
-# JWTError: If the signature is invalid in any way.
-# ExpiredSignatureError: If the signature has expired.
-# JWTClaimsError: If any claim is invalid in any way.
-
 async def userMiddleware(req: Request):
     token = req.headers.get('authorization', default=None)
     if token:
