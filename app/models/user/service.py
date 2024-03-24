@@ -48,7 +48,7 @@ class UserService:
             raise HTTPException(status_code=403, detail="Incorrect password.")
 
         token = token_provider.generate({'key': searcher.email})
-        return token
+        return {"user": searcher, "token": token}
 
     @staticmethod
     async def create(payload: CreateUser):
@@ -66,3 +66,16 @@ class UserService:
         token = token_provider.generate({'key': new_user.email})
         new_user.password = None
         return {"user": new_user, "token": token}
+    
+    @staticmethod
+    async def getByEmail(email: str):
+        try:
+            result = await UserRepository.getByEmail(email=email)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+        if result:
+            result.password = None
+            return result
+        else:
+            raise HTTPException(status_code=404, detail="User not found.")
+        

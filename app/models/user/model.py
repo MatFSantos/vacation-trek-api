@@ -15,3 +15,6 @@ class UpdateUser(BaseModel):
 class LoginUser(BaseModel):
     email: Annotated[str, Field(max_length=100)]
     password: Annotated[str, Field(max_length=200)]
+
+class VerifyUser(BaseModel):
+    email: Annotated[str, Field(max_length=100)]

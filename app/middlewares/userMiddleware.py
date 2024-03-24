@@ -8,8 +8,7 @@ from jose.exceptions import JWTError, ExpiredSignatureError, JWTClaimsError
 
 async def userMiddleware(req: Request):
     token = req.headers.get('authorization', default=None)
-    email = req.headers.get('email', default=None)
-    if token and email:
+    if token:
         token = token.split(' ')
         if len(token) == 2 and token[0] == 'Bearer':
             try:
@@ -20,9 +19,8 @@ async def userMiddleware(req: Request):
                 raise HTTPException(status_code=403, detail="Any claim is invalid.")
             except JWTError:
                 raise HTTPException(status_code=403, detail="The signature is invalid.")
-            if payload['key'] != email: 
-                raise HTTPException(status_code=401, detail="This token is invalid")
+            return payload['key'] 
         else:
             raise HTTPException(status_code=401, detail="Unauthenticated")
     else:
-        raise HTTPException(status_code=401, detail="Unauthenticated because dont have token or email")
+        raise HTTPException(status_code=401, detail="Unauthenticated")
