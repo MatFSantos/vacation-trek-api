@@ -25,7 +25,7 @@ async def createItinerary(itinerary: CreateItinerary):
     description="To get a itinerary from database according to id",
     status_code=200
 )
-async def getPlan(id: int = Path(..., alias="id")):
+async def getItinerary(id: int = Path(..., alias="id")):
     result = await ItineraryService.getOne(id=id)
     return ResponseSchema(detail="Successfully get data!", result=result)
 
@@ -36,7 +36,7 @@ async def getPlan(id: int = Path(..., alias="id")):
     description="To get all itineraries from database that belong to a vacation plan.",
     status_code=200
 )
-async def getAllPlans(id: int = Path(..., alias="id")):
+async def getAllItineraries(id: int = Path(..., alias="id")):
     result = await ItineraryService.getByPlan(plan_id=id)
     return ResponseSchema(detail="Successfully get data!", result=result)
 
@@ -47,8 +47,7 @@ async def getAllPlans(id: int = Path(..., alias="id")):
     description="To delete a itinerary from database according to id",
     status_code=200
 )
-async def deletePlan(id: int = Path(..., alias="id")):
-    raise HTTPException(status_code=405, detail="This method is yet to be implemented.")
+async def deleteItinerary(id: int = Path(..., alias="id")):
     result = await ItineraryService.delete(id=id)
     return ResponseSchema(detail="Successfully delete data!", result=result)
 
@@ -59,7 +58,7 @@ async def deletePlan(id: int = Path(..., alias="id")):
     description="To update a itinerary from database according to id",
     status_code=200
 )
-async def updatePlan(id: int = Path(..., alias="id"), *, itinerary: UpdateItinerary):
+async def updateItinerary(id: int = Path(..., alias="id"), *, itinerary: UpdateItinerary):
     raise HTTPException(status_code=405, detail="This method is yet to be implemented.")
     result = await ItineraryService.update(id=id, itinerary=itinerary)
     return ResponseSchema(detail="Successfully update data!", result=result)

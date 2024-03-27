@@ -10,7 +10,7 @@ class UserService:
         try:
             return await UserRepository.getAll()
         except Exception as e:
-            HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
     
     @staticmethod
     async def getOne(id: int):
@@ -29,14 +29,14 @@ class UserService:
         try:
             return await UserRepository.delete(id=id)
         except Exception as e:
-            HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
     
     @staticmethod
     async def update(id: int, user: dict):
         try:
             return await UserRepository.update(id=id, user=user)
         except Exception as e:
-            HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
     
     @staticmethod
     async def login(payload: LoginUser):
@@ -48,6 +48,7 @@ class UserService:
             raise HTTPException(status_code=403, detail="Incorrect password.")
 
         token = token_provider.generate({'key': searcher.email})
+        searcher.password = None
         return {"user": searcher, "token": token}
 
     @staticmethod

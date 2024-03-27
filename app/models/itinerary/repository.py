@@ -32,4 +32,4 @@ class ItineraryRepository:
     
     @staticmethod
     async def getByPlan(plan_id: int) -> list[Itinerary]:
-        return await prisma.prisma.itinerary.find_many(where={"plan_id": plan_id})
+        return await prisma.prisma.itinerary.find_many(where={"plan_id": plan_id}, order={'date': 'asc'})

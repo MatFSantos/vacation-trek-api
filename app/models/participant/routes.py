@@ -49,7 +49,6 @@ async def getAllParticipant(id: int = Path(..., alias='id')):
     status_code=200
 )
 async def deleteParticipant(id: int = Path(..., alias="id")):
-    raise HTTPException(status_code=405, detail="This method is yet to be implemented.")
     result = await ParticipantService.delete(id=id)
     return ResponseSchema(detail="Successfully delete data!", result=result)
 

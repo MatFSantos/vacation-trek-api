@@ -10,14 +10,14 @@ class ParticipantService:
         try:
             return await ParticipantRepository.getAll()
         except Exception as e:
-            HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
     
     @staticmethod
     async def getOne(id: int):
         try:
             result = await ParticipantRepository.getOne(id=id)
         except Exception as e:
-            HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
         if result:
             return result
         raise HTTPException(status_code=404, detail="Participant not found.")
@@ -27,14 +27,14 @@ class ParticipantService:
         try:
             return await ParticipantRepository.delete(id=id)
         except Exception as e:
-            HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
     
     @staticmethod
     async def update(id: int, participant: dict):
         try:
             return await ParticipantRepository.update(id=id, participant=participant)
         except Exception as e:
-            HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
 
     @staticmethod
     async def create(payload: CreateParticipant):
@@ -56,4 +56,4 @@ class ParticipantService:
         try:
             return await ParticipantRepository.getByPlan(plan_id=plan_id)
         except Exception as e:
-            HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")

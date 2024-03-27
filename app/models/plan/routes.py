@@ -15,6 +15,7 @@ router = APIRouter(prefix="/plan", tags=['plan'], dependencies=[Depends(userMidd
     status_code=201
 )
 async def createPlan(plan: CreatePlan):
+    print("passou aqui")
     result = await PlanService.create(payload=plan)
     return ResponseSchema(detail="Successfully create data!", result=result)
 
@@ -48,7 +49,6 @@ async def getAllPlans(id: int = Path(..., alias="id")):
     status_code=200
 )
 async def deletePlan(id: int = Path(..., alias="id")):
-    raise HTTPException(status_code=405, detail="This method is yet to be implemented.")
     result = await PlanService.delete(id=id)
     return ResponseSchema(detail="Successfully delete data!", result=result)
 

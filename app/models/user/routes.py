@@ -16,7 +16,7 @@ router = APIRouter(prefix="/user", tags=['user'])
 )
 async def loginUser(user: LoginUser):
     result = await UserService.login(payload=user)
-    return ResponseSchema(detail="Successfully get data!", result=result)
+    return ResponseSchema(detail="Successfully login!", result=result)
 
 @router.get(
     path="/{id}",

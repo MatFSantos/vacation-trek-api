@@ -1,12 +1,12 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import date
+from datetime import datetime
 
 class CreateItinerary(BaseModel):
-    date: date
+    date: datetime
     location: str
     plan_id: int
     
 class UpdateItinerary(BaseModel):
-    date: Optional[date]
+    date: Optional[datetime]
     location: Optional[str]

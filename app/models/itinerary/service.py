@@ -42,6 +42,9 @@ class ItineraryService:
         if searcher is None:
             raise HTTPException(status_code=404, detail="Plan don't exists")
 
+        if not (payload.date >= searcher.date_start and payload.date <= searcher.date_end):
+            raise HTTPException(status_code=400, detail="Itinerary date is out of range")
+
         try:
             itinerary = await ItineraryRepository.create(itinerary=payload)
             return itinerary
@@ -55,6 +58,6 @@ class ItineraryService:
             raise HTTPException(status_code=404, detail="Plan don't exists")
 
         try:
-            return ItineraryRepository.getByPlan(plan_id=plan_id)
+            return await ItineraryRepository.getByPlan(plan_id=plan_id)
         except Exception as e:
-            HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"An error was occurred: {str(e)}")
