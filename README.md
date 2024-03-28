@@ -40,6 +40,8 @@ $ sudo docker compose up -d
 
 > This command will be create the image to `postgres` and the entire application and run in the background. You can stop the process running `sudo docker stop vacation-trek-api postgres`.
 
+Now yout API is runing in `http://localhost:3333`.
+
 ### To run without Docker
 
 You must ensure that you have a postgresql on your machine or  in the cloud, and that you have correctly placed the database URL in the `.env` file.
