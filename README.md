@@ -61,10 +61,14 @@ $ pipenv shell
 Once the environment started and all dependencies have been installed, the database migrations must be carried out by running the following commands:
 
 ```
-$ prisma db push --force-reset --accept-data-loss
+$ prisma migrate dev
 ```
 
-> This command will migrate and generate the prisma models.
+```
+$ prisma generate
+```
+
+> These commands will migrate and generate the prisma models.
 
 Now, to run the application just execute:
 
